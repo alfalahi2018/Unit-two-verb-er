@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verb + er – 3 Levels</title>
+<style>
+:root{--bg:#eef6ff;--card:#fff;--ink:#2b2d42}
+@media (prefers-color-scheme:dark){:root{--bg:#1d2236;--card:#2a3150;--ink:#f1f3ff}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:"Comic Sans MS","Trebuchet MS",system-ui,sans-serif;background:var(--bg);color:var(--ink);padding:12px}
+.wrap{max-width:720px;margin:auto;text-align:center}
+.school{font-size:14px;opacity:.75}h1{margin:4px 0;font-size:clamp(24px,6vw,36px);color:#f06595}
+.card{background:var(--card);border-radius:22px;padding:16px;margin:12px 0;box-shadow:0 6px 16px #0002}
+.btn{font:inherit;font-weight:bold;font-size:19px;border:0;border-radius:16px;padding:14px 18px;color:#fff;cursor:pointer;box-shadow:0 5px 0 #0003;margin:5px}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #0003}.btn:disabled{opacity:.7}
+.L1{background:#51cf66}.L2{background:#fcc419;color:#2b2d42}.L3{background:#ff6b6b}.gr{background:#868e96}.bl{background:#4dabf7}
+.lv{display:block;width:100%;text-align:left;padding:14px 18px}.lv small{display:block;font-weight:normal;font-size:15px}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:14px;margin:8px 0}
+.rules div{border-radius:12px;padding:6px;color:#fff}
+.q{font-size:clamp(19px,4.6vw,26px);margin:10px 0}.big{font-size:70px}
+.opts{display:grid;gap:10px;margin-top:8px}
+.top{display:flex;justify-content:space-between;font-weight:bold}
+.prog{height:12px;background:#dee2e6;border-radius:8px;overflow:hidden;margin:6px 0}.prog i{display:block;height:100%;background:linear-gradient(90deg,#4dabf7,#51cf66);transition:.4s}
+.fb{min-height:54px;font-size:19px;font-weight:bold;margin-top:8px}.ok{color:#2f9e44}.no{color:#e03131}
+input.t{font:inherit;font-size:28px;text-align:center;border:4px solid #b197fc;border-radius:14px;padding:8px;width:90%;background:var(--card);color:var(--ink)}
+.blank{display:inline-block;min-width:90px;border-bottom:4px solid #f06595}
+.shake{animation:shake .45s}.pop{animation:pop .45s}
+@keyframes shake{25%{transform:translateX(-9px)}50%{transform:translateX(9px)}75%{transform:translateX(-5px)}}
+@keyframes pop{0%{transform:scale(.85);opacity:.4}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+.name{font:inherit;padding:8px 12px;border-radius:12px;border:2px solid #4dabf7;width:220px;background:var(--card);color:var(--ink)}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:99}footer{margin:14px;font-size:14px;opacity:.85}
+.wrongtxt{color:#e03131;text-decoration:line-through;font-weight:bold}
+</style></head><body><div class="wrap">
+<div class="school">Khawlah Bint Thalabah (5-9)</div><h1>🌈 Verb + er: Choose Your Level</h1>
+<div id="app"></div><footer>Created by T.Badria Alfalahi ❤️🌸</footer></div><canvas id="cv"></canvas>
+<script>
+const app=document.getElementById('app');let name='',res={};let ac;
+function snd(f,d=.15,t='sine',v=.15,w=0){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(ac.destination);const s=ac.currentTime+w;o.start(s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.stop(s+d)}catch(e){}}
+const good=()=>[523,659,784].forEach((f,i)=>snd(f,.2,'triangle',.18,i*.08));
+const bad=()=>{snd(200,.25,'sawtooth',.12);snd(150,.3,'sawtooth',.12,.12)};
+const sh=a=>[...a].sort(()=>Math.random()-.5);
+function confetti(){const cv=document.getElementById('cv'),x=cv.getContext('2d');cv.width=innerWidth;cv.height=innerHeight;const P=[...Array(130)].map(()=>({x:Math.random()*cv.width,y:-20-Math.random()*200,v:2+Math.random()*4,r:4+Math.random()*6,c:`hsl(${Math.random()*360},90%,60%)`,w:Math.random()*6}));let f=0;(function a(){x.clearRect(0,0,cv.width,cv.height);P.forEach(p=>{p.y+=p.v;p.x+=Math.sin(p.y/20+p.w);x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r*1.6)});if(++f<200)requestAnimationFrame(a);else x.clearRect(0,0,cv.width,cv.height)})()}
+const RULES=`<div class="rules"><div style="background:#4dabf7">1️⃣ add <b>er</b><br>teach➜teacher</div><div style="background:#ff7b7b">2️⃣ ends with e: add <b>r</b><br>dance➜dancer</div><div style="background:#40c057">3️⃣ short verb: double + <b>er</b><br>run➜runner</div></div>`;
+// Level 1: picture + 2 choices (rules shown)
+const D1=[['teach','👩‍🏫','teacher','teachr'],['sing','🎤','singer','singger'],['play','⚽','player','plaer'],['dance','💃','dancer','danceer'],['write','✍️','writer','writeer'],['bake','🥖','baker','bakeer'],['paint','🎨','painter','paintr'],['ride','🏇','rider','rideer'],['run','🏃','runner','runer'],['swim','🏊','swimmer','swimer']];
+// Level 2: sentences, 3 choices
+const D2=[['My mum bakes cakes. She is a ','baker',['baker','bakeer','bakker']],['Sara loves to swim. She is a good ','swimmer',['swimer','swimmer','swimeer']],['Ali works on a farm. He is a ','farmer',['farmer','farmmer','farmr']],['She dances on stage. She is a ','dancer',['danceer','dancer','danncer']],['He drives a bus. He is a bus ','driver',['driveer','drivver','driver']],['My uncle runs every morning. He is a ','runner',['runer','runner','runeer']],['She writes books. She is a ','writer',['writeer','writter','writer']],['He plays the guitar. He is a guitar ','player',['player','playyer','plaer']],['She shops every Friday. She is a ','shopper',['shoper','shopeer','shopper']],['He paints pictures. He is a ','painter',['paintter','painter','paintr']]];
+// Level 3: type it / fix the mistake
+const D3=[['Omar likes to jog. He is a ','jogger','(jog)'],['My sister loves to sing. She is a great ','singer','(sing)'],['He can ride a horse. He is a good horse ','rider','(ride)'],['Layla wants to teach. She wants to be a ','teacher','(teach)'],['He can swim very fast. He is a fast ','swimmer','(swim)'],['Zainab likes to chat. She is a big ','chatter','(chat)'],['FIX: Mona is a good writter.','writer','FIX'],['FIX: Ahmed is a fast runer.','runner','FIX'],['FIX: My father is a bakeer.','baker','FIX']];
+function menu(){
+ const st=k=>res[k]!=null?`<small>Your score: ${res[k]} ${'⭐'.repeat(Math.round(res[k]/{1:8,2:10,3:9}[k]*3))}</small>`:'';
+ app.innerHTML=`<div class="card"><input class="name" id="nm" placeholder="Your name" value="${name}"><p>Pick the level that is right for you 👇<br>You can try the next level any time!</p>
+ <button class="btn lv L1" onclick="start(1)">⭐ Level 1 – Let's Start!<small>Look at the picture and choose between 2 words. Rules help you.</small>${st(1)}</button>
+ <button class="btn lv L2" onclick="start(2)">⭐⭐ Level 2 – I'm Getting Better!<small>Read the sentence and choose from 3 spellings.</small>${st(2)}</button>
+ <button class="btn lv L3" onclick="start(3)">⭐⭐⭐ Level 3 – Challenge!<small>Write the word yourself and fix the mistakes. No help!</small>${st(3)}</button></div>`;
+ document.getElementById('nm').oninput=e=>name=e.target.value}
+const back='<button class="btn gr" style="font-size:15px;padding:6px 12px" onclick="menu()">⬅ Levels</button>';
+function start(L){
+ const data=sh(L==1?D1:L==2?D2:D3).slice(0,L==1?8:L==2?10:9);let i=0,s=0;
+ const head=(n)=>`${back}<div class="top"><span>${'⭐'.repeat(L)} Level ${L}</span><span>${i+1}/${data.length} • ✔ ${s}</span></div><div class="prog"><i style="width:${i/data.length*100}%"></i></div>`;
+ const nxt=(t)=>setTimeout(()=>{i++;show()},t);
+ function show(){
+  if(i>=data.length){res[L]=s;return fin(L,s,data.length)}
+  const d=data[i];
+  if(L==1){const o=sh([d[2],d[3]]);
+   app.innerHTML=`<div class="card">${head()}${RULES}<div class="big pop">${d[1]}</div><div class="q">A person who can <b>${d[0]}</b> is a …</div><div class="opts">${o.map(x=>`<button class="btn bl" onclick="C(this,'${x}')">${x}</button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
+   window.C=(b,x)=>{document.querySelectorAll('.opts .btn').forEach(k=>k.disabled=true);const fb=document.getElementById('fb');
+    if(x===d[2]){s++;good();fb.innerHTML=`<span class="ok">✔ ${d[0]} ➜ ${d[2]}</span>`;nxt(1200)}else{bad();b.classList.add('shake');fb.innerHTML=`<span class="no">✘ ${d[0]} ➜ ${d[2]}</span>`;nxt(2000)}}}
+  else if(L==2){const o=sh(d[2]);
+   app.innerHTML=`<div class="card">${head()}<div class="q pop">${d[0]}<span class="blank">&nbsp;&nbsp;?&nbsp;&nbsp;</span></div><div class="opts">${o.map(x=>`<button class="btn bl" onclick="C(this,'${x}')">${x}</button>`).join('')}</div><div class="fb" id="fb"></div></div>`;
+   window.C=(b,x)=>{document.querySelectorAll('.opts .btn').forEach(k=>k.disabled=true);const fb=document.getElementById('fb');
+    if(x===d[1]){s++;good();fb.innerHTML=`<span class="ok">✔ ${d[1]}</span>`;nxt(1200)}else{bad();b.classList.add('shake');fb.innerHTML=`<span class="no">✘ Correct: ${d[1]}</span>`;nxt(2000)}}}
+  else{const fix=d[2]==='FIX';
+   const line=fix?`✏️ Fix the mistake!<br><span class="wrongtxt">${d[0].slice(5)}</span>`:`${d[0]}<span class="blank">&nbsp;&nbsp;?&nbsp;&nbsp;</span> <small>${d[2]}</small>`;
+   app.innerHTML=`<div class="card">${head()}<div class="q pop">${line}</div><input class="t" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${fix?'Write the correct word':''}"><br><br><button class="btn L1" id="ck">Check ✔</button><div class="fb" id="fb"></div></div>`;
+   const inp=document.getElementById('in');inp.focus();
+   const go=()=>{const a=inp.value.trim().toLowerCase();if(!a)return;document.getElementById('ck').disabled=true;inp.disabled=true;const fb=document.getElementById('fb');
+    if(a===d[1]){s++;good();fb.innerHTML=`<span class="ok">✔ ${d[1]}</span>`;nxt(1300)}else{bad();inp.classList.add('shake');fb.innerHTML=`<span class="no">✘ Correct: ${d[1]}</span>`;nxt(2200)}};
+   document.getElementById('ck').onclick=go;inp.onkeydown=e=>{if(e.key==='Enter')go()}}}
+ show()}
+function fin(L,s,n){const p=s/n;if(p>=.7){confetti();good()}
+ app.innerHTML=`<div class="card pop"><div class="big">${p>=.9?'🏆':p>=.7?'🌟':'💪'}</div><h2>Level ${L} finished!</h2><h1>${s} / ${n}</h1><div style="font-size:30px">${'⭐'.repeat(Math.max(1,Math.round(p*3)))}</div>
+ <p>${p>=.9?'Wow'+(name?', '+name:'')+'! '+(L<3?'Try the next level!':'You are a super star!'):p>=.7?'Great job! '+(L<3?'Ready for the next level?':''):'Good try! Look at the rules and play again.'}</p>
+ <button class="btn L2" onclick="start(${L})">🔄 Play again</button>${p>=.7&&L<3?`<button class="btn L3" onclick="start(${L+1})">➡ Next level</button>`:''}<button class="btn gr" onclick="menu()">Levels</button></div>`}
+menu();
+</script></body></html>
